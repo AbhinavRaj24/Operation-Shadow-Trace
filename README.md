@@ -260,3 +260,91 @@ cat /root/* flag
 # 
 ```
 Got the flag.
+
+
+## Kalpit Lal Rama Blog 
+
+Search on google the name Kalpit Lal Rama. Got a linkden profile with the name.  
+
+Went to the linkden:
+https://www.linkedin.com/in/kalpit-lal-rama-58b789330/?originalSubdomain=in 
+
+It had a profile link to Twitter(X):
+https://x.com/KalP52916094 
+
+When visited the twitter it had a reddit link:
+https://www.reddit.com/user/Virtual-Copy-637/comments/1fuyetj/ 
+
+In one of a post it had:
+```
+i_like_these_numbers_particularly/ numbers: 
+12668958 
+29326 
+23627944634268 
+3108 
+8 
+523948 
+01050036027972 
+87177902339084610664
+``` 
+Went to dcode to test the cipher, used ```dcode cipher identifier```
+It showed nice probability of  ```base36``` cypher
+Decrypted it with base36 decoder,got:
+```
+7JJFI MMM 8DIJ06H0C 2EC 8 B8A4 0DEDOC8JO IEC4J8C4IRSRS
+```
+After few tries, used ```ROT13 bruteforce``` on ```cyber chef```
+```
+Amount = 1: 7KKGJ NNN 8EJK06I0D 2FD 8 C8B4 0EFEPD8KP JFD4K8D4JSTST 
+Amount = 2: 7LLHK OOO 8FKL06J0E 2GE 8 D8C4 0FGFQE8LQ KGE4L8E4KTUTU 
+Amount = 3: 7MMIL PPP 8GLM06K0F 2HF 8 E8D4 0GHGRF8MR LHF4M8F4LUVUV 
+Amount = 4: 7NNJM QQQ 8HMN06L0G 2IG 8 F8E4 0HIHSG8NS MIG4N8G4MVWVW 
+Amount = 5: 7OOKN RRR 8INO06M0H 2JH 8 G8F4 0IJITH8OT NJH4O8H4NWXWX 
+Amount = 6: 7PPLO SSS 8JOP06N0I 2KI 8 H8G4 0JKJUI8PU OKI4P8I4OXYXY 
+Amount = 7: 7QQMP TTT 8KPQ06O0J 2LJ 8 I8H4 0KLKVJ8QV PLJ4Q8J4PYZYZ 
+Amount = 8: 7RRNQ UUU 8LQR06P0K 2MK 8 J8I4 0LMLWK8RW QMK4R8K4QZAZA 
+Amount = 9: 7SSOR VVV 8MRS06Q0L 2NL 8 K8J4 0MNMXL8SX RNL4S8L4RABAB 
+Amount = 10: 7TTPS WWW 8NST06R0M 2OM 8 L8K4 0NONYM8TY SOM4T8M4SBCBC 
+Amount = 11: 7UUQT XXX 8OTU06S0N 2PN 8 M8L4 0OPOZN8UZ TPN4U8N4TCDCD 
+Amount = 12: 7VVRU YYY 8PUV06T0O 2QO 8 N8M4 0PQPAO8VA UQO4V8O4UDEDE 
+Amount = 13: 7WWSV ZZZ 8QVW06U0P 2RP 8 O8N4 0QRQBP8WB VRP4W8P4VEFEF 
+Amount = 14: 7XXTW AAA 8RWX06V0Q 2SQ 8 P8O4 0RSRCQ8XC WSQ4X8Q4WFGFG 
+Amount = 15: 7YYUX BBB 8SXY06W0R 2TR 8 Q8P4 0STSDR8YD XTR4Y8R4XGHGH 
+Amount = 16: 7ZZVY CCC 8TYZ06X0S 2US 8 R8Q4 0TUTES8ZE YUS4Z8S4YHIHI 
+Amount = 17: 7AAWZ DDD 8UZA06Y0T 2VT 8 S8R4 0UVUFT8AF ZVT4A8T4ZIJIJ 
+Amount = 18: 7BBXA EEE 8VAB06Z0U 2WU 8 T8S4 0VWVGU8BG AWU4B8U4AJKJK 
+Amount = 19: 7CCYB FFF 8WBC06A0V 2XV 8 U8T4 0WXWHV8CH BXV4C8V4BKLKL 
+Amount = 20: 7DDZC GGG 8XCD06B0W 2YW 8 V8U4 0XYXIW8DI CYW4D8W4CLMLM 
+Amount = 21: 7EEAD HHH 8YDE06C0X 2ZX 8 W8V4 0YZYJX8EJ DZX4E8X4DMNMN 
+Amount = 22: 7FFBE III 8ZEF06D0Y 2AY 8 X8W4 0ZAZKY8FK EAY4F8Y4ENONO 
+Amount = 23: 7GGCF JJJ 8AFG06E0Z 2BZ 8 Y8X4 0ABALZ8GL FBZ4G8Z4FOPOP 
+Amount = 24: 7HHDG KKK 8BGH06F0A 2CA 8 Z8Y4 0BCBMA8HM GCA4H8A4GPQPQ 
+Amount = 25: 7IIEH LLL 8CHI06G0B 2DB 8 A8Z4 0CDCNB8IN HDB4I8B4HQRQR 
+```
+This looked like a valid web link:
+```Amount = 10: 7TTPS WWW 8NST06R0M 2OM 8 L8K4 0NONYM8TY SOM4T8M4SBCBC``` 
+
+Got after substitutions:```https://www.instagram.com/i_like_anonymity_sometimesbcbc``` 
+
+But it wasnt a valid link, so just searched instagram for
+```i_like_anonymity_sometimes```
+Got the account as:```i_like_anonymity_sometimes```
+Link:```https://www.instagram.com/i_like_anonymity_sometimes1212/``` 
+
+Then went to highlights ```spam```. Saw a wikipedia post with written ```i hope i didn't leaked something```. Went to the wikipedia link.
+Wikipedia:https://en.wikipedia.org/w/index.php?title=Thomas_Keller_Medal&action=history
+We can edit the wikipedia, getting this in mind opened ```edit history```. 
+
+Saw: 
+```13:07, 13 May 2025 KapilLal20 talk contribs 12,870 bytes +107 No edit summaryundo Tag: Reverted``` 
+
+Got the flag:```PClub{idk_how_this_got_typed}``` 
+
+Got link to other challenges:
+```https://pastebin.com/v9vuHs52``` 
+
+Two challenge:
+```
+Challenge 1 : Connect to 3.109.250.1 at port 5000 
+Challenge 2 : https://cybersharing.net/s/327d3991cd34b223 
+```
