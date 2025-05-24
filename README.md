@@ -12,3 +12,10 @@ Kalpit Rama blog:
 ```
 flag1:PClub{idk_how_this_got_typed}
 ```
+## Grafana Blog
+### Initial challenge:
+When reading the grafana blog, opened the link to the grafana login dashboard.  
+We didn't have the login id and password.  
+When searched for grafana and its vulnerability found about the ```Grafana 8.3.0 - Directory Traversal and Arbitrary File Read, CVE:2021-43798```.  
+There existed vulnerability where some files
+
