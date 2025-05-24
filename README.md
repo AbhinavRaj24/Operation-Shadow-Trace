@@ -263,7 +263,7 @@ Got the flag.
 
 
 ## Kalpit Lal Rama Blog 
-
+### Initial challenge 
 Search on google the name Kalpit Lal Rama. Got a linkden profile with the name.  
 
 Went to the linkden:
@@ -348,3 +348,166 @@ Two challenge:
 Challenge 1 : Connect to 3.109.250.1 at port 5000 
 Challenge 2 : https://cybersharing.net/s/327d3991cd34b223 
 ```
+
+
+### Challenge 2 
+**Challenge 1** : Connect to 3.109.250.1 at port 5000
+
+**Flag:** Not found.
+
+```nc 3.109.250.1 5000 ``` 
+So we have a statement which gives a string and a number and ask us a another string so that the hash of the concenated string has the number as start                                             
+```
+Find a string such that SHA-256 hash of "njvoWx" concatenated with your input starts with the the string "55250".
+dOxu
+dOxu
+
+    1. get first half code
+    2. get second half code
+    3. get flag
+    What do you want ?
+```
+
+**Script to find string:**
+
+```
+#!st half of the code
+import hashlib
+import itertools
+import string
+
+prefix = "njvoWx"
+target = "55250"
+
+# Try all combinations of 1 to 6-character strings (customize as needed)
+chars = string.ascii_letters + string.digits  # alphanumeric
+
+for length in range(1, 7):
+    for suffix in itertools.product(chars, repeat=length):
+        test_str = prefix + ''.join(suffix)
+        hash_hex = hashlib.sha256(test_str.encode()).hexdigest()
+        if hash_hex.startswith(target):
+            print(f"Found! Suffix: {''.join(suffix)}")
+            print(f"Full string: {test_str}")
+            print(f"SHA256: {hash_hex}")
+            exit()
+#2nd half of the code
+
+def main():
+    if not proof():
+        print("Check Failed!")
+        return
+    return_val = options()
+    if return_val == 1:
+        f = open("./part1.py")
+        print(f.read())
+        return
+    elif return_val == 2:
+        f = open("./part2.py")
+        print(f.read())
+        return
+    elif return_val == 3:
+        byts = bytes_to_long(m)
+        sys.stdout.write("Give me a padding: ")
+        padding = input().strip()
+        padding = int(sha256(padding.encode()).hexdigest(), 16)
+        c = pow(byts + padding, e, n)
+        print("Ciphertext : ", c)
+    else:
+        print("Invalid")
+        return
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except:
+        os._exit(-1)
+```
+
+Whole code of the challenge retrieved:
+```
+from Crypto.Util.number import bytes_to_long
+from hashlib import sha256
+import random
+import os, sys
+
+m = b"PClub{Fake_Flag}"
+n = 14396996159484935402263047209515591837894561722637754977347763291309469526016654395830492184143403002427443166570907471043582253894111865750271913633299048451358715658977476227178780148897263675642352138870807635707152157265878868071156485130358955177740064371871540690429629376357175922832896148083749207758979817755416407370097422607094461094843394269367378266138773192483991105300836363325123386715060503986689730021660330714714902229408932007554015453954776067969393448087791858215409782993160037667631348054614116602892854843905177862655435919982681383061296616680660139810652785553456917773787057033714145613047
+e = 3
+
+
+def options():
+    help_menu = """
+    1. get first half code
+    2. get second half code
+    3. get flag
+    What do you want ?"""
+    while True:
+        print(help_menu)
+        c = input().strip()
+        if c == "1":
+            return 1
+        elif c == "2":
+            return 2
+        elif c == "3":
+            return 3
+        else:
+            print("Please select a valid option!")
+
+
+def proof():
+    _x = "abcdefghijklmnopqrstuvwxyzFRLMAOEWJASK"
+    _y = "".join(random.sample(_x, 6))
+    _z = str(random.randint(10000, 99999))
+    print(
+        f'\nFind a string such that SHA-256 hash of "{_y}" concatenated with your input starts with the the string "{_z}".')
+    _u = input().strip()
+    return hashlib.sha256((_y + _u).encode()).hexdigest()[:len(_z)] == _z
+
+#2nd part
+def main():
+    if not proof():
+        print("Check Failed!")
+        return
+    return_val = options()
+    if return_val == 1:
+        f = open("./part1.py")
+        print(f.read())
+        return
+    elif return_val == 2:
+        f = open("./part2.py")
+        print(f.read())
+        return
+    elif return_val == 3:
+        byts = bytes_to_long(m)
+        sys.stdout.write("Give me a padding: ")
+        padding = input().strip()
+        padding = int(sha256(padding.encode()).hexdigest(), 16)
+        c = pow(byts + padding, e, n)
+        print("Ciphertext : ", c)
+    else:
+        print("Invalid")
+        return
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except:
+        os._exit(-1)
+```
+
+So when we enter 3, we are asked to provide a padding such that, hash of the padding string is added to bytes_to_long(message) and then it acts as a RSA challenge and gives a cypher text.
+Used ```factordb``` to see if n is prime or composite.
+We have a small e, and composite n with unknown factors.
+
+Tried some mathematical reasoning, but couldn't get an answer.
+Tried to find a padding such that (p+m) is a perfect cube root through python program. But cant get something.
+
+### Challenge 3
+**Flag:** Not found
+We have an executable file. 
+Tried to run it, it didn't open.
+Used ```ghidra``` to see the assembly .
+Opened the functions, tried to get something related to the flag. But got nothing.
