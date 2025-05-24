@@ -1,9 +1,9 @@
-Kalpit rama challenge 2 
-Challenge 1 : Connect to 3.109.250.1 at port 5000
+### Kalpit rama challenge 2 
+**Challenge 1** : Connect to 3.109.250.1 at port 5000
 
+```nc 3.109.250.1 5000 ``` 
+So we have a statement which gives a string and a number and ask us a another string so that the hash of the concenated string has the number as start                                             
 ```
-nc 3.109.250.1 5000                                                                                 
-
 Find a string such that SHA-256 hash of "njvoWx" concatenated with your input starts with the the string "55250".
 dOxu
 dOxu
@@ -14,8 +14,7 @@ dOxu
     What do you want ?
 ```
 
-Script to find string:
-
+**Script to find string:**
 
 ```
 #!st half of the code
@@ -72,8 +71,7 @@ if __name__ == '__main__':
         os._exit(-1)
 ```
 
-
-whole code:
+Whole code of the challenge retrieved:
 ```
 from Crypto.Util.number import bytes_to_long
 from hashlib import sha256
